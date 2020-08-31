@@ -1,0 +1,69 @@
+\section{S/C Bus} \label{sec:bus}
+\hypso will be of a 6U standard CubeSat configuration and will include the following subsystems:
+\begin{itemize}
+\item Solar panels
+\item Electrical Power System (EPS)
+\item Remove-Before-Flight (RBF) System
+\item Flight Computer (FC) and Attitude Determination \& Control System (ADCS)
+\begin{itemize}
+\item Magnetorquers (3-axis)
+\item 4$\times$ reaction wheels
+\item 6$\times$ sun-sensors
+\item 3$\times$ gyroscopes
+\item IMU
+\item 3$\times$ magnetometers
+\item Star-tracker
+\end{itemize}
+\item GNSS/GPS
+\item S-band Radio \& patch antenna
+\item UHF Radio, turnstile antenna \& monopole antenna
+\item Batteries ($>$94 Wh)
+\end{itemize}
+Secondary payloads are
+\begin{itemize}
+\item Software-Defined Radio (SDR)
+\item RGB Camera
+\end{itemize}
+Interfacing is prospected to be standard CAN, I$^2$C, SPI and Serial between the subsystems. Figure \ref{fig:mass} shows the estimated mass budget for a 6U CubeSat with the required capabilities.
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[width=80mm,angle=0]{figs/mass_budget.png}
+    \caption{Mass Budget for HYPSO}
+    \label{fig:mass}
+  \end{center}
+\end{figure}
+%\begin{table}[htbp]
+	%\caption{Mass Budget for a 6U in grams}
+	%\label{tab:mass}
+	%\centering
+		%\begin{tabular}{|l|r|r|}
+			%\hline
+			%Subsystem & Mass, g & Mass, g (+20 \%)	\\ 
+			%\hline 															
+		%HSI &	800 &	960 \\
+		%Structure	& 1060 &	1272 \\
+		%Stack rods &	123 &	147.6 \\
+		%Mechanisms & 60 &	72 \\
+		%Wires \& cables &	200 &	240 \\
+		%Reaction Wheels &	940 &	1128 \\
+		%Star-tracker &	560 &	672 \\
+		%Fine Sun Sensor	& 18 &	21.6 \\
+		%Magnetorquers	& 156 &	187.2 \\
+		%ADCS &	112	& 134.4 \\
+		%Antenna S-band &	110 &	132 \\
+		%Antenna UHF/VHF	& 90 &	108 \\
+		%Radio S-band	& 65.3 &	78.36 \\
+		%Radio UHF/VHF	& 24.5 &	29.4 \\
+		%GPS	& 24 &	28.8 \\
+		%OBC	& 94	& 112.8 \\
+		%EPS	& 100	& 120 \\
+		%Batteries	& 500 &	600 \\
+		%Solar Panels	& 758	& 909.6 \\
+		%SDR	& 209	& 250.8 \\
+		%\hline
+		%Total	& 6003.8 &	7204.56 \\
+		%\hline
+		%Total (+20\%)	&  &	8645.47 \\
+		%\hline 
+		%\end{tabular}
+%\end{table}

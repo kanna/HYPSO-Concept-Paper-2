@@ -1,0 +1,191 @@
+\section{HSI Data Processing and Control Architecture} \label{sec:processing}
+\begin{figure*}[htbp]
+  \begin{center}
+    \includegraphics[width=110mm,angle=0]{figs/processing.png}
+    \caption{High-level processing and control architecture for \hypso}
+    \label{fig:processing}
+  \end{center}
+\end{figure*}
+Figure \ref{fig:processing} illustrates
+information flow, integrated processing and control architecture. The
+layers from top to bottom correspond to the HSI payload with
+onboard processing, \hypso bus within onboard task planning and control,
+ground control/operations with data and model management, and payloads
+and control on other assets such as UAV/AUV/USV and traditional
+satellite data products.
+
+A brief description of the main functionality in the blocks in Figure
+\ref{fig:processing} is given below:
+
+\begin{itemize}
+
+\item The {\bf \hypso HSI payload} and its On-the-Fly-Processing (OTFP) follows
+  a processing chain that is similar to what is found in similar small
+  satellite systems, e.g. \cite{Sou16}:
+
+  \begin{itemize} 
+
+  \item The {\bf HSI data acquisition} block captures image frames
+    that at each sampling instant has one spatial dimension
+    (laterally, across the track) and one spectral dimension. The
+    second spatial dimension (along the track) is built sequentially
+    from these image frames as the satellite moves along. Predictions
+    and observations of illumination (sun position and atmospheric
+    conditions such as clouds) can also be used to optimize the
+    attitude control and slewing in order to get the best possible
+    data results given priorities within the target area.
+
+  \item In the {\bf geometric image processing} block each pixel is
+    transformed into a geographic location on the ocean surface. This
+    is based on time synchronization of the image capture in the HSI
+    data acquisition hardware, and measurements of attitude and
+    position from the \hypsoe's navigation system. Next, the data is
+    re-sampled and arranged into a datacube with two spatial dimensions
+    and one spectral dimension.
+
+  \item {\bf Radiometric image processing} transforms each pixel value
+    into absolute reflectance values. This involves a calibration
+    process using models and measurements of the atmosphere, solar
+    radiation and/or geo-referenced reference measurements near the
+    ground. Pixel values that are occluded by clouds should be
+    identified.
+
+  \item {\bf Spectral image processing} is based on multivariate data
+    modeling that projects the data onto expected and
+    unexpected/observed ``signatures'' corresponding to the features
+    of interest, \cite{Vit17}. This acts as a basis for data compression,
+    detection of features, as well as removal of effects of specular
+    reflections in the water, shadows due to clouds, and other
+    undesired optical features \cite{For17}. The data cube of spectral components, treated as principal components, are to be selected and go through an entropy coder.
+
+  \item In the {\bf spatio-temporal processing} block, the image
+    resolution will be enhanced by spatial deconvolution of
+    overlapping images, as indicated in Section
+    \ref{sec:hsi}. Moreover, the spatial features may be segmented and
+    represented in a form that is useful for tracking, classifying and
+    recognizing the features of interest. CCSDS123 algorithm is to be 
+		employed for lossless compression of the data that may achieve up to 
+		$\times 2$ decrease in size. 
+
+  \item The processed data may be used for {\bf model update} (i.e.
+    state and parameter estimation ) in an onboard oceanographic model
+    that describes the dynamics of the main physical and biological
+    phenomena in the target area. Such phenomena typically include
+    ocean currents, waves and wind as well as transport and production
+    of biological matter of scientific interest. 
+		%{\it Should this be
+     % done onboard, or sufficient to do in the ground segment? It will
+      %lead to increased autonomy and might be most useful when
+      %communication is very limited...}
+\end{itemize} 
+
+\item The {\bf \hypso} bus system has functions for attitude control
+  (reaction wheels and magnetic torquers), navigation (GPS), radio
+  communication datalink that can be partially used by the HSI payload,
+  resource/energy/power management, resilience/redundancy/fault-tolerance etc.
+
+\item {\bf Ground control} includes overall mission planning and
+  execution, data management, oceanographic model with data
+  assimilation and simulation capabilities, operator interfaces etc. 
+	The overall mission management will optimize the use of
+  available resources and assets by providing information and tasks to
+  each one of them.
+
+\item {\bf Other assets} include buoys, manned and unmanned
+  aerial/surface/underwater vehicles with payload sensors, traditional
+  satellite data products and meta-ocean services.
+
+\end{itemize}
+
+\subsection{Data Products} \label{sec:data_products}
+
+\begin{table*}[htbp]
+	\caption{Data Processing Levels}
+	\label{tab:data_levels}
+	\centering
+		\begin{tabular}{|l |p{12cm}|}
+			\hline 															
+			Data Type & Description \\
+			\hline
+			Level 0 & Reconstructed, unprocessed instrument and payload data at full resolution, with any and all communications artifacts (e.g., synchronization frames, communications headers, duplicate data) removed. (In most cases, the EOS Data and Operations System (EDOS) provides these data to the data centers as production data sets for processing by the Science Data Processing Segment (SDPS) or by a SIPS to produce higher-level products.) \\
+			\hline
+			Level 1a & Reconstructed, unprocessed instrument data at full resolution, time-referenced, and annotated with ancillary information, including radiometric and geometric calibration coefficients and georeferencing parameters (e.g., platform ephemeris) computed and appended but not applied to Level 0 data. \\
+			\hline
+			Level 1b & Level 1A data that have been processed to sensor units (not all instruments have Level 1B source data). \\
+			\hline
+			Level 2 & Derived geophysical variables at the same resolution and location as Level 1 source data. \\
+			\hline
+			Level 3 & Variables mapped on uniform space-time grid scales, usually with some completeness and consistency. \\
+			\hline
+			Level 4 & Model output or results from analyses of lower-level data (e.g., variables derived from multiple measurements). \\
+			\hline
+		\end{tabular}
+\end{table*}
+Data products are illustrated in Figure \ref{fig:data_processing_levels}. Generally in remote sensing community, the images are defined in levels as can be shown in Table \ref{tab:data_levels}\footnote{https://science.nasa.gov/earth-science/earth-science-data/data-processing-levels-for-eosdis-data-products/} below. All exquisite Earth Observation Satellites (EOS) instruments must have Level 1 products. Most are able to downlink Levels 2 and 3 products, but also many have Level 4 products. Level 0 is in general only necessary to characterize the optical performance and degradation. Level 1a and b data is considered useful for remote sensing experts that are more concerned about imagery of Earth. This level may include radiometric correction, onboard calibration and parameters from in-situ validation. Level 0 is recoverable from Level 1a data but not Level 1b and above. Level 2 is most useful for scientists while Level 4 extracts only the necessary information for end-user.
+
+\begin{figure}[htbp]
+  \centering
+      \includegraphics[width=0.5\textwidth]{figs/data_processing_levels.png}
+  \caption{Data Products delivered by satellite. Level 4 gives operational data that only includes relevant signatures/spectral bands, while Level 2 is useful for science which is not spectrally compressed but has the necessary geometric and spatio-temporal compression. Other formats may be requested by updating the processing levels in a database to be uplinked.}
+	\label{fig:data_processing_levels}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+      \includegraphics[width=0.5\textwidth]{figs/data_processing_levels2.png}
+  \caption{Data processing products pipeline.}
+	\label{fig:data_processing_levels2}
+\end{figure}
+
+\subsection{Super-resolution} \label{superresolution}
+Since overlapping pixels is a key result from the push-broom imaging with constant slew rate, then there are several post-processing deconvolution/super-resolution (SR) algorithms that may be implemented on-board. Basic image registration for super-resolution is shown in Observing with multiple low-resolution (LR) images has recently proved to be a promising approach to obtain SR image or sequence. This way offers potential lower cost. S. C. Park, M. K. Park and M. G. Kang provide a comprehensive summary of performing SR Image reconstruction through various SR methods \cite{Park2003}.
+\begin{figure}[htbp]
+  \centering
+      \includegraphics[width=0.45\textwidth]{figs/super-resolution.png}
+  \caption{SR reconstruction. Credit: \cite{Park2003}.}
+	\label{fig:SR}
+\end{figure}
+The basis for increasing spatial resolution in SR techniques is the availability of multiple LR images captured from the same scene. The LR images are subsampled or aliased and shifted with subpixel precision. With different subpixel shifts and aliasing present, the image cannot be obtained from the others. However this difference can be utilized for SR reconstruction to achieve better resolution. Relative scene motions must be present from frame to frame via multiple scenes or video sequences. This may be achieved by one camera with several captures or from multiple cameras located in different positions. Motions can be controlled or uncontrolled (i.e. by 'accident').
+
+In the process of recording a digital image, here is a natural loss of spatial resolution caused by the optical distortions such as being out of focus, having diffraction limit, motion blur due to limited shutter speed, noise that occurs within the sensor or during transmission, and insufficient sensor density. In short, SR images are to be reconstructed from degraded and aliased LR images. Therefore SR reconstruction can be considered as a second-generation problem of image restoration. Image interpolation is a method also to be considered in SR reconstruction, that is reconstructing image components that are lost or degraded in the LR sampling process. However high-frequency components cannot be recovered, thus providing an argument for image interpolation not to be considered as a SR reconstruction method. 
+
+\subsubsection{Low-resolution image acquisition process} \label{secfss}
+Formulation of an observation model is necessary to fully understand the analysis of SR image reconstruction. Consider the desired HR image of size $L_{1} N_{1} \times L_{2} N_{2}$ written as the vector $\mathbf{x} = [x_{1}, x_{2}, \ldots , x_{N}]^{T}$, where $N=L_{1} N_{1} \times L_{2} N_{2}$. $\mathbf{x}$ is considered to be an ideal undegraded image sampled at or above the Nyquist rate from a bandlimited continous scene (i.e. twice the bandwidth). $L_{i}, i \in \{1,2\}$ are the downsampling factors in the observation model for the horizontal and vertical directions. Thus each observed LR image is of size $N_{1} \times N_{2}$. The $k$th LR image is denoted as $\mathbf{y_{k}} = [y_{k,1}, y_{k,2}, \ldots , y_{k,M}]^{T}, k \in \{1,2,\ldots,p\}$ and $M = N_{1} \times N_{2}$. $\mathbf{x}$ is treated as constant during the acquistion of multiple LR images, except for the motion and degradation allowed by the model. The observation model can then be written as,
+\begin{equation}
+\mathbf{y_{k}} = \mathbf{D}\mathbf{B_{k}}\mathbf{M_{k}}\mathbf{x} + \mathbf{n_{k}}
+\end{equation}
+where $\mathbf{M_{k}} \in \mathbb{C}^{L_{1}N{1}L_{2}N_{2}\times L_{1}N_{1}L_{2}N_{2}}$ is a warp matrix and $\mathbf{B_{k}} \in \mathbb{C}^{L_{1}N{1}L_{2}N_{2}\times L_{1}N_{1}L_{2}N_{2}}$ is a blur matrix, $\mathbf{D} \in \mathbb{C}^{(N{1}N_{2})^{2}\times L_{1}N_{1}L_{2}N_{2}}$ is a subsampling matrix and $\mathbf{n_{k}}$ represents a ordered noise vector. More about the properties of the matrices can be found in Park et al \cite{Park2003}.
+
+Most of the SR image reconstruction methods proposed in the literature consist of registration, interpolation and restoration. These methods can be implemented separately or simultaneously. The following sections will provide summaries of deterministic and stochastic regularization approaches. 
+
+\subsubsection{Nonuniform Interpolation Approach} \label{sec45}
+This technique for SR reconstruction consists of estimation of relative motion (i.e. registration), nonuniform interpolation to produce an improved resolution image and deblurring process. The SR image is obtained from nonuniform interpolation. Deconvolution is employed on the restoration process. Komatsu et al. presented a scheme to acquire an improved resolution image by applying the Landweber algorithm from multiple images taken simultaneously with multiple cameras \cite{Komatsu1993, Landweber1951}. They employ block-matching techniques to measure relative shifts. Limitations exist on same aperture of cameras. Different apertures are proposed in this method \cite{Komatsu1993b}. Hardie et al. developed a technique for infrared image registration and SR reconstruction by employing registration algorithm for estimating shifts between the acquired frames and presented a weighted nearest neighbor interpolation approach. Wiener filter is finally applied to reduce the effects of blurring and noise caused by the system \cite{Alam2000}. Nguyen and Milanfar proposed an efficient wavelet-based SR reconstruction algorithm \cite{Nguyen2000}. The advantage of nonuniform interpolation is that it takes low computational load and makes real-time applications possible. 
+
+\subsubsection{Frequency Domain Approach}\label{sec2}
+This approach utilizes aliasing existing in each LR image to reconstruct a SR image. Three principles govern the frequency domain approach: shifting property of Fourier transform, aliasing relationship between the continuous Fourier transform (CFT) of and original SR image and discrete Fourier transform (DFT) of observed LR images, and finally the assumption that an original SR image is bandlimited. Some methods employ discrete cosine transform (DCT) instead of DFT in order to reduce memory requirements and computational costs. Ill-posedness may be handled by multichannel adaptive regularization parameters \cite{Park2003}. 
+
+\subsubsection{Regularized SR Reconstruction Approach}\label{sec3}
+Some of the issues with SR reconstruction approach is due to insufficient number of LR images and ill-conditioned blur operators. Regularization stabilized the inversion of ill-posed problem. Deterministic constrained least squares and stochastic maximum a posteriori SR image reconstruction methods. The deterministic approach is based on using lagrangian multipliers in a minimization problem. This applies well for both large and small number of LR images and will be penalized by the lagrange multiplier accordingly. The stochastic approach is typically of the Bayesian type for a priori sampling and models a priori knowledge to the solution. Some stochastic methods incorporate maximum likelihood (ML) estimation both with a priori and no prior terms. Maximum a posteriori (MAP) is usually preferred over ML due to ill-posed inverse problem. Cheeseman et al. applied the Bayesian estimation with a Gaussian prior model to the problem of integrating multiple satellite images observed by the Viking orbiter \cite{Cheeseman1994}.
+
+\subsubsection{Projection onto Convex Sets Approach} \label{sec4}
+This is an iterative approach that incorporates prior knowledge about the solution into the reconstruction process. The SR image is estimated simultaneously through restoration and interpolation. The solution is restricted to be a member of a closed convex set $C_{t}$ that are defined as a set of vectors which satisfy a particular property. If the constraint sets have a nonempty intersection then a solution that belongs to the intersection set $C_{s} = \cap_{t=1}^{m} C_{t}$, which is also a convex set, can be found by alternating projections onto these convex sets. 
+
+\subsubsection{ML-POCS Hybrid Reconstruction Approach} \label{sec5}
+This approach finds SR estimates by minimizing the ML (or MAP) cost functional while constraining the solution within certain sets. Stochastic approaches and POCS approach may be combined (hybrid).  
+
+\subsubsection{Bayesian Methods for Image SR} \label{sec5}
+L. C. Pickup et al. discuss a novel method of Bayesian image SR in which marginalization is carried out over geometric and photometric registration and image pointspread function \cite{Pickup2009}. This method allows for more realistic image prior distributions and reduces the integral dimension, easing computational efforts. This is considered here to be an improvement to the more common Bayesian SR approaches that marginalize over the high-resolution image (which needs access to prior unfavourable image). A scheme is developed to deal with this problem by performing Bayesian marginalization over the uncertainty in the set of estimated imaging parameters, leading to an iterative algorithm to estimate a high-resolution image. Improvement to the maximum a posteriori SR estimate can be done by updating LR image registration through SR image estimate. More recently MAP can be used to learn more general geometric and photometric registrations, the SR image and the values for the prior's parameters simultaneously. Tipping and Bishop's \textit{Bayesian Image Super-Resolution} work uses a ML point estimate of the registration parameters and the camera imaging blur, found by integrating the high-resolution image out of the registration problem and optimizing the marginal probability of the observed low-resolution images directly \cite{Tipping2003}. The accuracy of recovered registration is improved compared to the MAP approach, however, it has limitations of being restricted to use a Gaussian image prior in order for the marginalization to remain tractable and it is computationally expensive. Pickup et al. proposes a better method with smaller matrix sizes thus easing the computations. Constrained optimization methods are used to compute the SR image. The results show that the method is capable of handling the errors and uncertainty introduced in real practical systems and is not mathematically confined to translation-only motion.
+
+\subsubsection{Robust Estimation and Image Combining}  \label{sec6}
+GCOMBINE in the STSDAS package for combining images is described in \cite{Zhang1995}. With a stack of input images the bad pixels can be identified by comparing the deviation of a pixel from th mean with a user-specified treshold times the clipping sigma. A variety of weighting schemes and means for storing noise characteristics are discussed. Large flux of cosmic ray events are common in space-based CCD cameras. The problem here is to identify and remove such events. Several functionalities of the package are used. After a mean is computed, one computes a deviation of the pixel from the mean and then compare it with a 'clipping sigma'. This way pixels may be rejected. The clipping sigma can only be obtained with either the CCD noise model or the input error map.
+
+\subsubsection{Restoration of interferometric images. III. Efficient Richardson-Lucy methods for LINC-NIRVANA data reduction}  \label{sec7}
+B. Anconelli et al. discuss the methods and software for the restoration of images provided by Fizeau interferometers such as the German-Italian beam combiner LINC-NIRVANA (LN) for the Large Binocular Telescope (LBT) \cite{Anconelli2005}. Multiple images of the same target are provided corresponding to different orientations of the baseline. LN will require multiple-image deconvolution methods in order to produce a unique high-resolution image. Two methods for astronomy image taking are required: the less accurate rapid overview \textit{the quick look method} and \textit{ad hoc method} which is designed for a particular object of interest and is as accurate as possible. Here Richardson-Lucy methods are used as maximization of likelihood function in the case of Poisson noise. The paper also investigates fusion of multiple images into a single one, so that single-image deconvolution methods can be used more efficiently rather than for the multiple-image ones. 
+
+\subsection{Other SR Reconstruction approaches}
+The following are also common approaches for SR Reconstruction:
+\begin{itemize}
+\item Iterative Back-Projection
+\item Adaptive Filtering
+\item Motionless SR Reconstruction
+\end{itemize}

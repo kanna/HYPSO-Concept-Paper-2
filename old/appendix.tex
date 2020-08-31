@@ -1,0 +1,221 @@
+\section{Appendix A}
+Tables \ref{tab:success}, \ref{tab:func_reqs}, \ref{tab:non_func_reqs} and \ref{tab:constraints} show the mission success criteria, functional requirements, non-functional (operational) requirements and constraints, respcectively.
+\begin{table*}[htbp]
+	\label{tab:success}
+	\caption{Mission Success Criteria}
+	\centering
+		\begin{tabular}{l p{12cm} c c}
+			\hline
+			Req. ID & \textbf{Definition} &	Min & Full	\\ 
+			\hline 				
+			M-0-001 & S/C shall successfully launch, deploy, detumble and initialize operations (LEOP and commissioning) in LEO & \checkmark &  \\
+			\hline														
+			M-0-002 & Mission control shall identify S/C, generate TLE and estimate its initial state upon deployment from P-POD with max $\pm$ 30\% deviation allowed to nominal orbit & \checkmark &  \\
+			\hline
+			M-0-003 & Shall observe Case 2 water area in Norwegian coast of $\leq 70 \times 70$ km$^2$ at view angle $\leq 70^{\circ}$ with respect to Nadir  & \checkmark &  \\
+			\hline
+			M-0-004 & Should observe Case 2 water area in Norwegian coast of $\leq 200 \times 200$ km$^2$ at view angle $\leq 20^{\circ}$ with respect to Nadir  &  & \checkmark \\
+			\hline
+			M-0-005 & Shall pass target at least 1 pass per day & \checkmark & \\
+			\hline
+			M-0-006 & Should pass target at least 3 passes per day in Spring time &  & \checkmark \\
+			\hline
+			M-0-007 & Shall, under cloudless or cloud gap conditions, take at least 3 image of target area with $\leq 20$ bands in VIS-NIR spectral range that contains a detectable water-leaving signature to be ground truthed & \checkmark &  \\
+			\hline
+			M-0-008 & Should, under cloudless or cloud gap conditions, take at least 30 images of target area with $\leq 100$ bands in VIS-NIR spectral range that contains detectable water-leaving signatures to be ground truthed & & \checkmark \\
+			\hline
+			M-0-009 & S/C shall take images while pointing Nadir and achieve at least 10 \% overlapping fields & \checkmark &  \\
+			\hline
+			M-0-010 & S/C should perform slew maneuver at a constant slew rate along one axis wrt Nadir, with two actuation events of reaction wheels, and take images with at least 80 \% overlapping fields that will undergo super-resolution post-processing to get at least $\sqrt{3}$ better SNR and spatial resolution in average & & \checkmark \\
+			\hline
+			M-0-011 & S/C should perform slew maneuver at a constant slew rate along one axis with two actuation events of reaction wheels, while actively pointing cross-track, and take images with at least 10 \% overlapping fields & & \checkmark \\
+			\hline
+			M-0-012 & Shall downlink at least spatially compressed payload data in raw format with ancillary data (L1a level) & \checkmark & \\
+			\hline
+			M-0-013 & Shall enable flexible mission planning \& scheduling and subsystem updates through uplinked data & \checkmark & \\
+			\hline
+			M-0-014 & 3 onboard processed image and TT\&C data shall be downlinked for direct interpretation & \checkmark & \\
+			\hline
+			M-0-015 & 10 onboard processed images and TT\&C data shall be downlinked for direct interpretation & & \checkmark \\
+			\hline
+			M-0-016 & Shall communicate to ground and downlink house-keeping telemetry data for at least 1 pass per day & \checkmark &  \\
+			\hline
+			M-0-017 & Should communicate to ground and downlink house-keeping telemetry data for each available pass per day &  & \checkmark \\
+			\hline
+			M-0-018 & Shall be operational for at least 6 months with daily mission updates during peak-season & \checkmark & \\
+			\hline
+			M-0-019 & Should be operational for at least 3 years with daily mission updates during peak-season &  & \checkmark \\
+			\hline
+		\end{tabular}
+\end{table*} 
+
+\begin{table*}[htbp]
+	\label{tab:func_reqs}
+	\caption{Mission Functional Requirements}
+	\centering
+	\begin{tabular}{l p{15cm}}
+			\hline
+			\textbf{Req. ID}							&	\textbf{Definition} 			\\ 
+			\hline 
+			M-1-001  & Shall achieve LEOP plus commissioning in less than 2 weeks with full mission operations support in less than 3 weeks   \\
+			\hline 															       
+			M-1-002  & Detection and identification of scientific matter in mesoscale target area shall happen in at least in 1 out of 72 orbits in spring and summer season with less than 10 \% false positive signatures \\ 
+			\hline
+			M-1-003  & Target area shall be any area with mesoscale size of at least $70 \times 70$ km$^2$ along the coast of Norway that will include the point at Lat: 63.867608 $^{\circ}$ and Lon: 8.663644 $^{\circ}$ and be imaged between 08:00 AM and 13:00 PM in spring and summer season \\ 
+			\hline
+			M-1-004 & 50 \% of target area image shall be without brightness saturation due to sun-glare \\
+			\hline
+			M-1-005  & S/C payload shall have spectral range of at least 400-800 nm (VIS-NIR) and spectral resolution of $\leq 10$ nm \\ 
+			\hline
+			M-1-006  & Images of target area with positive signatures shall have spatial resolution of $\Delta x\leq100$ m, $\geq$ 20 spectral bands at $\leq 10$ nm resolution, and mapping knowledge error of $\leq \pm 10$ m \\
+			\hline
+			M-1-007 & Remote sensing images with positive signatures shall have $\leq 100 \times 100$ m$^2$ spatial resolution, i.e. $\Delta x\leq 100$ and $\Delta y\leq 100$ m and GSD $\leq 100$ m \\
+			\hline
+			M-1-008  & Faintest detectable ToA signature in the range of 400-600 nm range shall be at SNR of 200:1 for algorithm detection\\ 
+			\hline
+			M-1-009 & Angle between initial target area point and Nadir, e.g. view zenith angle or sensing axis-target angle, shall not exceed 70$^{\circ}$ \\
+			\hline 
+		  M-1-010  & Shall enable automated on-board geometric (situational awareness) processing/calibration; radiometric processing/calibration; spectral compression; and spatial compression in the respective order \\
+		\hline
+		 M-1-011 & Shall fuse overlapping fields of view in order to enhance the image resolution by a factor of at least $3$ and mean SNR of at least $\sqrt{3}$ \\
+			\hline
+		 M-1-012 & Shall have on-board radiometric and geometric calibration resulting in $\leq 15$\% radiometric uncertainty and $\leq 10$ \% geometric uncertainty \\
+		\hline
+		 M-1-013 & Target area shall be viewed with a total of 3 observable passes   \\
+			\hline
+		 M-1-014 & Shall downlink at least 3 images per day and perform 3 full and nominal imaging operations per day when signatures are detectable \\ 
+		\hline
+		 M-1-015 & At least raw data with ancillary information, including radiometric and geometric calibration coefficients and geo-referencing parameters (Level 1a) shall be downlinked \\
+			\hline
+			M-1-016 & At least spectrally and spatio-temporally compressed data that are geometrically plus radiometrically calibrated onboard (Level 2 \& Level 4) shall be downlinked \\
+			\hline
+			M-1-017  & S/C shall have absolute pointing knowledge of $36''/0.01^{\circ}$ (2 $\sigma$) and absolute pointing accuracy of $360''/0.1^{\circ}$ (2 $\sigma$)  \\
+			\hline
+			M-1-018  & S/C shall slew in 3-axis prior to image acquisition such that S/C points maximum $+60^{\circ}$ with respect to Nadir and in direction of orbit-track with settling time $\leq$ 1 min and drift error $\leq 0.01^{\circ}$ \\
+			\hline
+			M-1-019  & S/C shall slew in 3-axis in opposite direction of orbit-track with maximum slew rate of $1^{\circ}/s$ in image acquisition mode during $\leq$ 1 min and drift error $\leq 0.01^{\circ}$\\
+			\hline 
+			M-1-020  & Response time of downlinked image with positive signature to in-situ validation in target area shall be less than 2 hrs \\
+			\hline
+			M-1-021 & Spectral band selection and data bases on radiometric, geometric and atmospheric models shall be uplinked in maximum 3 orbits prior to the observations are made \\
+			\hline
+			M-2-022  & Shall be inserted in a SSO configuration at altitude of 450-600 km with allowance of $\pm$ 23\% deviation from nominal inclination angle   \\
+			\hline
+			M-2-023  & Shall be launched at 9:00-11:00 am or 8:00-10:00 pm LTAN with allowance of $\pm$ 10\% deviation from nominal RAAN angle  \\
+			\hline
+			M-1-024 & Eclipse time shall be no more than 39.67 \% of orbit period \\
+			\hline
+			M-1-025  & Shall uplink data on mission planning \& task execution with data size at max. 50 Mb \\
+     \hline
+			M-1-026 & Shall downlink Level 2 or Level 4 data with data size at max. 300 Mb \\
+			\hline 
+			M-1-027  & Should downlink data of $>300$ Mb size in 3 consecutive orbits\\
+			\hline
+			M-2-028 & Downlink data rate shall be at least 0.8 Mb/s at frequency between 2.60 to 3.95 GHz (S-band) and conform with the national frequency usage requirements \\
+			\hline
+			M-1-029 & S/C shall conform to the CubeSat Specifications (Section 2) of the CubeSat Design Specification (CDS) rev. 12 \\
+			\hline
+			M-1-030 & Launch window for S/C should be maximum 4 months prior to spring season, specifically before or in February 2020 \\ 
+			\hline
+			M-1-031 & Launch window for S/C shall be maximum 8 months prior to summer season, specifically before or in June 2020  \\ 
+			\hline
+			M-1-032 & S/C shall accommodate axial acceleration of 7.2 gs, lateral acceleration of 2.4 gs, fundamental axial frequency of 30 Hz and fundamental lateral frequency of 12 Hz \\
+			\hline
+		\end{tabular}
+\end{table*}
+
+\begin{table*}[htbp]
+	\label{tab:non_func_reqs}
+	\caption{Mission Non-Functional Requirements}
+	\centering
+	\begin{tabular}{l p{15cm}}
+			\hline
+		\textbf{ID}							&	\textbf{Definition} 			\\ 
+			\hline
+			M-2-001 & Shall nominally map nominal target area each day without any apriori task commands on target location from Ground by slewing along-track with respect to Nadir, i.e. along in-track-Nadir (2-axis) plane and not pointing towards a target \\
+			\hline
+			M-2-002 & Target location coordinates shall be uploaded from Ground based on visual inspection, in-situ assets other satellite data (e.g. MODIS, MERIS, Sentinel-3) within 24 hrs \\
+			\hline
+			M-2-003 & Should point to and perform image acquisition of target areas where there is highest probability of detection off the coast of Norway \\
+			\hline
+			M-2-004 & Shall perform imaging when conditions are cloudless or with cloud gaps, have solar zenith angle of $\leq75^{\circ}$ and wind ground speeds of $<12$ m/s \\
+			\hline
+			M-2-005  & Corrections for atmospheric distortions, water particles, aerosols, turbidity, clouds shall be enabled by utilizing $750-800$ nm (NIR) bands \\ 
+			\hline
+			M-2-006 & Shall achieve GSD $\leq100$ m through 3-axis controlled slew maneuver to achieve effective image resolution of $\leq100$ m through post-processing algorithms \\
+			\hline
+			M-2-007 & S/C shall be able to uplink and downlink from/to at least 2 ground stations being in Trondheim, Norway, and Longyearbyen, Svalbard \\
+			\hline
+			M-2-008  & Mission planning \& scheduling and pointing maneuvers shall be updated on-board through uplinked data in the same pass with lead time of minimum 5 min to the observations are made \\ 
+			\hline		
+			M-2-009  & Image acquisition and onboard processing of dataset shall happen during 2 min \\ 
+			\hline
+			M-2-010 & Mean contact time during uplink and downlink of one image shall be 4 min and 5 min, respectively, and happen during same pass as observations \\
+			\hline
+			M-2-011  & Ground shall have at least 1 available operator each day from 7:00 AM to 4:00 PM (UTC+1) \\ 
+			\hline
+			M-2-012  & Downlinked and ground processed data should be available to other robotic agents, these being UAVs, USVs and AUVs, with response time of maximum 30 min to investigate positive signature detection(s) in target area 
+    \\ \hline
+			M-2-013 & A shared model shall be updated on a data and model server between S/C, UAV, USV and AUV and other EO satellites and linked to payload data, navigational data and task execution and planning \\
+			\hline
+			M-2-014  & Level 2 data shall consist of geometrically and radiometrically calibrated and geo-referenced hyperspectral images with up to 100 spectral bands and $\leq10$ nm resolution that have Gaussian average for each band \\ 
+			\hline	
+			M-2-015  & Level 4 data shall consist of target location and at least radiometrically calibrated hyperspectral images with up to 20 spectral bands and $\leq5$ nm resolution that have Gaussian average for each band \\ 
+		\hline	
+			M-2-016  & Mission shall support off/on payload operations during off-demand and NTNU shall have full uplink authority of model \& camera updates to payload
+    \\ \hline
+			M-2-017  & Shall use on-board databases of on apriori-known reference spectral bands to detect, atmospheric models and environmental parameters for calibration and compression and enable payload to operate in different high-resolution and medium-resolution modes
+    \\ \hline
+		M-2-018  & S/C shall communicate to ground and downlink house-keeping telemetry data of up to 100 kb for at least 1 pass per day
+    \\ \hline
+		M-2-019  & Onboard databases on atmospheric models, solar angle conditions, weather models, sea state, target coordinates and usable spectral bands shall all enable payload to operate in unique modes according to the database used (e.g. gain tuning, exposure time, binning operations, and spectral compression). \\
+		\hline
+		M-2-020  & Finer-scale images at $mm$-level resolution for identical parts of target area given positive detection(s) shall be provided by either UAVs, USVs and AUVs or all \\ 
+			\hline
+		M-2-021  & Sub-surface water samples and in-situ measurements from identical parts of target area given positive detection(s) shall be provided manually or by either USVs, AUVs and buoys or all to give ground truth \\ 
+		\hline
+		M-2-022  & Should support UAV, USV and AUV field campaigns through path-planning corrections and updates on geo-referenced target area coordinates \\ 
+			\hline
+		M-2-023  & Shall accommodate distribution of Level 2 and Level 4 data to a maximum of 15 users \\ 
+			\hline
+		M-2-024  & Shall accommodate distribution of Level 0 and Level 1a data for operational and payload performance characterization purposes for up to 5 users  \\ 
+		\hline
+		M-2-025  & Lifetime of NTNU SmallSat mission shall be at least 6 months and S/C shall de-orbit within 25 years   \\
+			\hline
+					M-2-026 & Shall have capability of being in idle mode while not imaging, thus only harvesting solar power in this mode while not in eclipse \\
+			\hline
+		\end{tabular}
+\end{table*}
+
+\begin{table*}[htbp]
+	\label{tab:constraints}
+	\caption{Mission Constraints}
+	\centering
+		\begin{tabular}{l p{15cm}}
+			\hline
+		\textbf{ID}							&	\textbf{Definition}			\\ 
+			\hline 															  
+			C-001  & Must adhere to at least 6 months of from delivery to launcher to the launch itself  \\
+			\hline
+			C-002  & Must adhere to frequency regulations set by the respective government where operations take place and frequency allocation determined  \\ 
+			\hline
+			C-003  & Must adhere to policy on SSA for tracking of Space Debris in LEO, thus enable de-orbit upon end-of-life within $<25$ years    \\ 
+			\hline	
+			C-004  & Project budget shall be within $\leq 16$ MNOK for two missions    \\ 
+			\hline	
+			C-005  & NTNU will partner with a third-party to do systems design, integration and testing and potentially launch, hence authority on results and operations needs to be negotiated  \\ 
+			\hline
+			C-006  & Launch shall, from a programmatic point of view, be scheduled in Q4 2019 with second mission in Q3 2020  \\ 
+			\hline
+			C-007  & Payload development needs calibration, characterization and testing prior to integration on S/C bus  \\ 
+			\hline
+			C-008  & Mission is a case study for academic (PhDs and Professors) research initiatives hence needs to be rigorously developed in terms of achieving publishable results  \\ 
+			\hline
+			C-009  & First mission needs a team of at least 10 people under its development from Phase A to Phase E, where 5 people are fully committed \\ 
+			\hline
+			C-010  & S/C will piggyback on a launcher, hence the desired orbit is not guaranteed \\ 
+			\hline
+			C-011  & Cloudy conditions are expected in Norway, hence results may not be satisfactory in terms of hyperspectral imaging up in northern latitudes \\ 
+			\hline
+		\end{tabular}
+\end{table*}

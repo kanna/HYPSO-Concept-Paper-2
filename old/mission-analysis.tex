@@ -1,0 +1,310 @@
+\section{Mission Analysis} \label{sec:mission-analysis}
+\subsection{Remote Sensing}
+In order to bolster the mission design it is necessary to characterize the following
+\begin{itemize}
+\item Identify locations where probability of detection is highest (highest ToA radiance)
+\item Mapping Chl-a concentration and ToA radiance in the respective locations
+\item Get ToA radiance and characterize payload sensor
+\item Identify and create historical database on a daily, monthly and yearly basis with statistics for
+\begin{itemize}
+\item Cloud cover
+\item Chl-a concentrations
+\item ToA radiance
+\end{itemize} 
+\item Select targets where \hypso should most likely point to and have it in its database
+\end{itemize}
+Figures \ref{fig:seadas1}, \ref{fig:seadas3} \ref{fig:seadas2} show the Chl-a concentrations and ToA radiances at different dates on the coast of Trondheim, Norway. The data is retrieved from MODIS Aqua with a Multi-spectral instrument (MSI). The radiance reaching the sensor is comparable with respect to the radiance used in Figure \ref{fig:radiance} used to calculate SNR of HSI V6 in Section \ref{sec:snr}.
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=80mm,angle=0]{figs/SeaDas.png}
+	\caption{L2 data showing chl-a concentration outside the coast of Norway taken on 11th of May 2012}
+	\label{fig:seadas1}
+\end{figure}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=65mm,angle=0]{figs/SeaDas3.png}
+	\caption{L2 data showing chl-a concentrations outside the coast of Norway taken on 11th of May 2017}
+	\label{fig:seadas3}
+\end{figure}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=80mm,angle=0]{figs/SeaDas2.png}
+	\caption{L1b data showing reflected radiance outside the coast of Norway taken on 11th of May 2012}
+	\label{fig:seadas2}
+\end{figure}
+\subsection{Orbit Analysis}
+Simulations are run in \emph{STK Analyzer} as an optimization problem to determine maximum of average access duration per day of satellite to target area (Fr{\o}ya). Simulation period is set to 01/05/2020-17/05/2020 (17 days). 
+
+\noindent Design variables:
+\begin{itemize}
+\item $\Omega$: RAAN
+\item $i$: Inclination
+\item $a$: Semi-major axis
+\end{itemize}
+\noindent Constraints:
+\begin{itemize}
+\item $\epsilon_{\text{target}}$: 70$^{\circ}$ (elevation angle)
+\item Allowed time: 07:00:00-22:00:00 Local Time
+\item Maximum range to target: 2000 km
+\end{itemize}
+Mission phases and access duration for the satellite sensor are ignored. Unplanned deviations off baseline orbit may be characterized once satellite is in orbit since it is highly dependent on both launch windows (LTAN), delays, deployment of satellite and orbit-insertion. The optimization study determines which launch windows, inclination and altitude the satellite should be inserted to. However the trade study only takes into account the average access duration per day (in seconds), not spatial resolution (an important design variable) determined by optics that e.g. requires lower altitudes. 
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=80mm,angle=0]{figs/contour_inc_RAAN_ACESS.png}
+    \caption{Contour of Average Access Time to Froya vs. Inclination vs. RAAN}
+    \label{fig:acc_incl_RAAN}
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=90mm,angle=0]{figs/Carpet_plot_inc_altitude_ACESS.png}
+    \caption{Average Access Time to Froya vs. Inclination vs. Semi-major axis}
+    \label{fig:acc_inc_altitude2}
+\end{figure}
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=80mm,angle=0]{figs/contour_inc_altitude_ACESS2.png}
+    \caption{Contour of Average Access Time to Froya vs. Inclination vs. Semi-major axis}
+    \label{fig:acc_incl_alt1}
+\end{figure}
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=80mm,angle=0]{figs/contour_raan_altitude_ACESS.png}
+    \caption{Contour of Average Access Time to Froya vs. RAAN vs. Semi-major axis}
+    \label{fig:acc_raan_altitude2}
+\end{figure}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=80mm,angle=0]{figs/Lifetime_NSat_Nominal.png}
+	\caption{Lifetime of the satellite in SSO Orbit at 500 km. 7-16 years is expected depending on the altitude when deployed from Launcher.}
+	\label{fig:lifetime}
+\end{figure}
+\subsection{Mission Phases}
+Mission phases may be summarized in the following Table \ref{tab:mission_phases1}, assuming $20^{\circ}$ viewing angle for HSI observations, 500 km altitude and morning SSO configuration.
+\begin{table}[htbp]
+	\caption{Mission Phases}
+	\label{tab:mission_phases1}
+	\centering
+		\begin{tabular}{|l|l|l|r|}
+			\hline
+			Segment &		Description		& Start (UTC)	& Duration (s) \\
+			\hline
+			Phase 0 & Pre-operations orbit & 08:07:00 & 5400 \\
+			Phase 1-1 &	Initialize &	09:37:00 &	15 \\
+			Phase 1-2	& Comms. to Trondheim	& 09:37:15 &	125 \\
+			Phase 1-3	& Prepare slewing	& 09:39:20	& 115 \\
+			Phase 1-4	& HSI operations	& 09:41:15 &	57 \\
+			Phase 1-5	& Data processing	& 09:42:09 &	71 \\
+			Phase 1-6	& Point to Svalbard &	09:43:25	& 22 \\
+			Phase 1-7	& Comms. to Svalbard	& 09:43:45 & 270 \\
+			Phase 1-8	& Idle (harvest) & 09:48:15 &	605 \\
+			Phase 1-9	& Idle (eclipse)	& 09:59:20 &	2207 \\
+			Phase 1-10 & Idle (harvest) &	10:36:07	& 2255 \\
+			Phase 2 &	Next operations	& 11:13:42	& 5400 \\
+			\hline
+			\end{tabular}
+\end{table}
+%\subsection{Data Budget}
+%\begin{table*}[htbp]
+	%\caption{Data Size 1 Image Packet}
+	%\label{tab:compression}
+	%\centering
+			%\begin{tabular}{llr}
+				%\hline
+				%Option & Format & Size \\
+				%\hline
+				%1 & Raw A (1 frame) &	$1\times1200$ pixels $\times$ 16 bits/pixel $\times$ 1 frame = 1.92 Mb  \\
+				%\hline
+				%2 & Raw A (JPEG2000) &	$1\times1200$ pixels $\times$ 3 bits/pixel $\times$ 1 frame = 360 kb  \\
+				%\hline
+				%3 & Raw B (1735 frames) &	$1735 \times 1200$ pixels $\times$ 16 bits/pixel  = 3.3312 Gb  \\
+				%\hline
+				%4 & Raw B (JPEG 2000) &	$1735 \times 1200$ pixels $\times $ 3 bits/pixel = 624.6 Mb  \\
+				%\hline
+				%5 & Raw C (Raw B deconvoluted) &	$500\times1200$ pixels $\times$ 100 channels $\times$ 16 bits/(pixel $\times$ channel) = 960 Mb  \\
+				%\hline
+				%6 & Raw C (JPEG2000) &	$500\times1200$ pixels $\times$ 100 channels $\times$ 3 bits/(pixel $\times$ channel) = 180 Mb \\
+				%\hline
+				%7	& Compressed (spectrally) & $500\times1200$ pixels $\times$ 21 components $\times$ 24 \text{bits/pixel} = 302.4 Mb  \\	
+				%\hline
+				%8 &	Compressed (spectrally + JPEG2000) & $500\times1200$ pixels $\times$ 21 components $\times$ 3 bits/pixel = 37.8 Mb  \\
+				%\hline
+				%9 & TT\&C \& NavData & 100 kb \\
+				%\hline
+					%\end{tabular}
+%\end{table*}
+%
+%\begin{table*}[htbp]
+	%\caption{Data Budget, 1 Image Packet}
+	%\label{tab:data}
+	%\centering
+		%\begin{tabular}{l l l r r r}
+			%\hline 															
+			%Format & Size & UHF-band 100 kbps & S-band 1 Mbps & X-band 10 Mbps \\
+			%\hline
+			%Raw A (1 frame) + TT\&C & 1.92 Mb & 20.2 s & 2.02 s & 0.202 s \\
+			%\hline
+			%Raw A (JPEG2000) + TT\&C & 360 kb & 4.6 s & 0.46 s & 0.046 s \\
+			%\hline
+			%Raw B (1735 frames) + TT\&C & 3.3312 Gb & 9.26 hrs & 55.52 min & 5.55 min \\
+			%\hline
+			%Raw B (JPEG2000) + TT\&C & 624.6 Mb & 1.74 hrs & 10.41 min & 1.04 min \\
+			%\hline
+			%Raw C (Raw B deconvoluted) + TT\&C & 960 Mb & 2.67 hrs & 16 min & 1.60 s \\
+			%\hline
+			%Raw C (JPEG2000) + TT\&C & 180 Mb & 30.02 min & 3 min & 18.01 s \\
+			%\hline
+			%Compressed (spectrally) + TT\&C &  302.4 Mb & 50.42 min & 5.04 min & 30.25 s \\
+			%\hline
+			%Compressed (spectrally + JPEG2000) + TT\&C & 37.8 Mb & 6.32 min & 37.9 s & 3.79 s \\
+			%\hline
+			%TT\&C \& NavData & 100 kb & 1 s & 0.1 s & 0.01 s \\
+			%\hline
+		%\end{tabular}
+%\end{table*}
+%As discussed in Section \ref{sec:data_products}, for \hypso it is considered that Level 0, 1b, 2 and 3 may be downloaded upon demand. These may be stored onboard and downlinked in consecutive passes with flexible time constraints. Tables \ref{tab:compression} and \ref{tab:data} show the size and downlink time for all data products with proposed compression method of data and time necessary to downlink for different bands. Option 5 "Raw B (1735 frames)" is defined as raw data (Raw Data A or generally Level 0) that are taken over a $50\times70$ km target area and has 1735 raw frames that don't undergo deconvolution or super-resolution. Option 6 "Raw C (Raw B deconvoluted)" is defined as an image of $50\times70$ km target area with frames that have been processed through deconvolution and super-resolution algorithms. Only available data formats with navigational data included that meet the mission requirements are Options 2, 5, 6, 7, 8 i.e. Raw A (1 frame), Raw C (Raw B deconvoluted), Raw C (CCSDS123), Compressed (spectrally), Compressed (spectrally + CCSDS123). The requirements for data processing, based on mission design in section \ref{missiondesign} are summarized in Table \ref{tab:data_reqs}. Figure \ref{fig:mission_data} show the data downlink/uplink requirements for different data products.
+
+\begin{table}[htbp]
+	\caption{Data Processing Requirements}
+	\label{tab:data_reqs}
+	\centering
+		\begin{tabular}{l l}
+			\hline 															
+			Parameter & Value \\
+			\hline
+			Image resolution (after deconvolution) & 700 $\times$ 1216 pixels \\
+			Spectral Channels & $\leq16$ \\
+			HSI observation time $[t_{\text{HSI}, 0}, t_{\text{HSI}, f}]$ & [0, 57.6] s \\
+			Processing time $[t_{\text{process}, 0}, t_{\text{process}, f}]$ & [57.6, 152.4] s \\
+			S-band downlink time $[t_{\text{comms}, 0}, t_{\text{comms}, f}]$ & [152.4, 235] s\\
+			Nominal data format & L1A/Operational Level 4 \\
+			Science data format & Level 1A \\
+			Optional data formats & Level 0, 1b, 3 \\
+			Format of data to Radio & CAN/RS422 \\
+			\hline
+		\end{tabular}
+\end{table}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=80mm,angle=0]{figs/Mission_ops.png}
+	\caption{Amount of data needed to downlink and allocated downlink/uplink time}
+	\label{fig:mission_data}
+\end{figure}
+
+%\begin{table}[htbp]
+	%\caption{Mission Operations \& Constraints}
+	%\label{tab:mission_ops_constraints}
+	%\centering
+			%\begin{tabular}{|l|r|}
+				%\hline 
+				%Target area to image & $50 \times 70$ km$^2$ \\
+				%Imaging operations duration & 1.94 min \\
+				%\hline
+				 %1st access time to NTNU & 5.129 min \\
+			     %2nd access time to NTNU & 7.408 min \\
+			     %3rd access time to NTNU & 3.374 min \\
+			     %1st access time to Svalbard & 6.755 min \\
+			     %2nd access time to Svalbard & 4.743 min \\
+			     %3rd access time to Svalbard (9.5 hrs after 2nd) & 5.226 min \\
+			     %\hline
+				 %Uplink data rate & 98 kbps \\
+				 %Downlink data rate & 1 Mbps \\
+				 %\hline
+				 %L0 size & 94 MB \\
+				 %L1 size & 94.75 MB \\
+				 %L2 size & 38 MB \\
+				 %L4 size & 8 MB \\ 
+				 %TT\&C size & 200 kB \\
+				 %Uplink FPGA logic size & 6 MB \\
+				 %Uplink mission plan size & 200 kB \\
+				 %\hline
+				 %Downlink time L0 & \textcolor{red}{12.492 min}   \\
+				 %Downlink time L1 & \textcolor{red}{12.64 min}   \\
+				 %Downlink time L2 & \textcolor{green}{5.04 min}   \\
+				 %Downlink time L4 & \textcolor{green}{1.0584 min}   \\
+				 %Downlink time TT\&C & \textcolor{green}{1.6 s}  \\
+				 %Uplink FPGA logic time & \textcolor{red}{8.16 min} \\
+ 				 %Uplink mission plan time & \textcolor{green}{16.33 s} \\
+ 				 %\# passes to downlink L0, L1 & 3 \\
+				 %\# passes to downlink L2 & 1 \\ 
+				 %\# passes to downlink L4 & 1 \\ 
+				 %\# passes to downlink TT\&C & 1 \\
+				 %\# passes to uplink FPGA logic & 2 \\
+				 %\# passes to uplink mission plan & 1 \\
+				%\hline
+				%\end{tabular}
+%\end{table}
+%\begin{figure}[htbp]
+	%\centering
+	%\includegraphics[width=65mm,angle=0]{figs/downlink_data.png}
+	%\caption{Data downlink management for various data products.}
+	%\label{fig:downlink_data}
+%\end{figure}
+%\begin{figure}[htbp]
+	%\centering
+	%\includegraphics[width=45mm,angle=0]{figs/uplink_data.png}
+	%\caption{Data uplink management for various data products.}
+	%\label{fig:uplink_data}
+%\end{figure}
+
+\subsection{Power Budget}
+Several power values are estimated based on COTS from NanoAvionics as shown in Figure \ref{fig:power_budget}. Main essence will lie in the peak power for the HSI operations in payload capability and antennas/radio for communications, thus in developing the energy budget based on mission operations phases. Software Defined Radio (SDR) for enhanced inter-agent communications is considered, but not baseline for first-flight.
+\begin{figure*}[htbp]
+	\centering
+	\includegraphics[width=160mm,angle=0]{figs/power_budget.png}
+	\caption{Power Budget in Watts (W)}
+	\label{fig:power_budget}
+\end{figure*}
+%\begin{table}[htbp]
+	%\caption{Power Consumption of Subsystems}
+	%\label{tab:peak_power}
+	%\centering
+		%\begin{tabular}{|l|r|r|}
+			%\hline
+			%Subsystem & Avg., W (+30 \%) & Peak, W (+30 \%)	\\ 
+			%\hline 															
+			%HSI	& 3.9	& 10.4 \\
+			%Mechanisms &	0	& 0.017 \\
+			%TT\&C &	0.065	& 0.13 \\
+			%Reaction Wheels &	0.663	& 3.315 \\
+			%Star-tracker &	0.91 &	1.3 \\
+			%Fine Sun Sensor &	0.052 &	0.052 \\
+			%Magnetorquers	& 0.78 &	0.78 \\
+			%ADCS	& 0.306 &	1.255 \\
+			%Antenna S-band	& 0.78	& 13.91 \\
+			%Antenna UHF/VHF	& 0.78	& 13.91 \\
+			%Radio S-band	& 17.16	& 18.72 \\
+			%Radio UHF/VHF	& 5.304	& 5.304 \\
+			%GPS	& 1.5015 &	1.56 \\
+			%OBC	& 0.221 &	1.17 \\
+			%EPS	& 0.0975 &	0.195 \\
+			%Batteries &	0.0052 &	0.0052 \\
+		%\hline
+		%\end{tabular}
+%\end{table}
+%\subsection{Energy Budget}
+%Given Orbit concept 1 configuration as discussed in section \ref{sec:orbit1} and Table \ref{tab:mission_phases1} where \hypso passes Norway from south to north, there are mission phases to identify regarding energy management. Assuming there exists 30 \% discharge in the batteries and efficiency of solar power ratings are 30-40 \%, the energy budget for the respective mission phases are shown in Table and \ref{tab:energy2} for a 6U (Battery capacity = 5200 mAh, Max solar power = 11.88 W, Min solar power = 2.86 W), respectively. It is assumed that \hypso is continuously downlinking data during Phase 7 in order to add flexibility in terms of raw data download or inadequate quality of communications.
+%\begin{table*}[htbp]
+	%\caption{Energy Budget for 6U}
+	%\label{tab:energy2}
+	%\centering
+		%\begin{tabular}{|l|r|r|r|r|r|r|}
+			%\hline
+%Mission segment &	Duty Cycle (s)	& Power in (W)	& Power in (Wh) &	Power Consumed (Wh) &	Start Power (Wh) &	End Power (Wh) \\
+%\hline
+%Phase 0	& 5400 &	12.88 &	0.02 &	0.02 &	53.90 &	53.90 \\
+%Phase 1	& 5	& 12.88	& 0.02	& 0.02	& 53.90	& 53.90 \\
+%Phase 2	&	125	& 6.44	& 0.22	& 1.15	& 53.90	& 52.98 \\
+%Phase 3	&	115	& 3.86	& 0.12	& 0.54	& 52.98	& 52.56 \\
+%Phase 4	&	57	& 3.86	& 0.06	& 0.64	& 52.56	& 51.98 \\
+%Phase 5	&	71	& 6.44	& 0.13	& 0.40	& 51.98	& 51.71 \\
+%Phase 6	&	22	& 6.44	& 0.04	& 0.21	& 51.71	& 51.54 \\
+%Phase 7	&	270	& 3.86	& 0.29	& 3.34	& 51.54	& 48.50 \\
+%Phase 8	&	605 &	12.88 &	2.16 &	1.29 & 48.88 & 	49.76\\
+%Phase 9	&	2207 &	0.00 &	0.00 &	5.03 &	49.76 &	44.73 \\
+%Phase 10	&	2255 &	12.88 &	8.07 &	3.29 &	44.73 &	49.51 \\
+%\hline
+%Phase N+1	(active) &	660 & & 0.88 &	5.90 &	49.51 &	44.49 \\
+%Phase N+1 (idle)	&	5359		& & 10.23 &	9.61 &	44.49 &	45.12 \\
+%\hline
+%\end{tabular}
+%\end{table*}

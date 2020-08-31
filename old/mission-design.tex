@@ -1,0 +1,312 @@
+\section{Mission Design} \label{missiondesign}
+Since the mission is highly oriented towards science and remote sensing, as well as being a technology demonstrator, it is necessary to establish \emph{what} is needed and \emph{how} the mission will be conducted operationally to achieve full success criteria. Mission design study, or Phase A, motivate the particular use of HSI for ocean color purposes, and establishes how \hypso shall operate. Mission objectives, success criteria, requirements and constraints are established in Pre-phase A followed by analysis and characterization analysis for orbit, payload and operations in Phase A.
+
+The \hypso mission objectives are as follows:
+\begin{enumerate}
+\item To provide and support ocean color mapping through a Hyperspectral Imager (HSI) payload, autonomously processed data, and on-demand autonomous communications in a concert of robotic agents at the Norwegian coast.
+\item To collect ocean color data and to detect and characterize spatial extent of algal blooms, measure primary productivity using emittance from fluorescence-generating micro-organisms, and other substances resulting from aquatic habitats and pollution to support environmental monitoring, climate research and marine resource management.
+\item Develop robust framework for rapid systems engineering for a pipeline of spacecraft that may optimize project development in academia and industry.
+\item Build strong competence and strengthen the prospect of nano- and micro-satellite systems as supporting intelligent agents in integrated autonomous robotic systems dedicated to marine and maritime applications in Norway and internationally, these being applicable to communications and remote sensing (altimetry, SAR, radiometry etc.).
+\item Describe scientific methodology that will be adopted for the research, and coordinate the project plans with other ongoing research activities at NTNU and other research institutions and companies.
+\end{enumerate}
+
+Furthermore, it is emphasized that this mission is developed by PhD students, researchers, Master's students and professors, hence it shall be of academic nature and include objectives to emanate publishable results in the respective domains of control theory, artificial intelligence, electrical engineering, aerospace engineering, marine technology, biology and remote sensing. 
+
+Given the objectives it is important to establish a Level-0 statement for the mission:\\
+
+\textbf{\hypso mission shall, through narrow field-of-view push-broom Hyperspectral Imaging, demonstrate proof-of-concept oceanographic observations dedicated to ocean color remote sensing by intelligently supporting a concert of robotic agents consisting of UAVs, USVs, AUVs and stationary buoys observing the same target areas.}\\
+
+\subsection{Mission Architectures}
+During Pre-Phase A, by listing trade-offs for each mission element one may construct architectures that differ in the properties thus having varying impacts on cost, design and operations as a function of design solutions. The most important mission elements are listed as follows: A = Mission Concept; B = Controllable Subjects; C = Passive Subject; D = Payload; E = S/C bus; F = Orbit; G = Launch; H = Ground System; I = Communications Architecture; J = Mission Operations. Table \ref{tab:mission_elem_opts} shows the options for each mission element selected. Baseline elements are indicated with number 1 and \textcolor{orange}{orange} text signifies alternatives to baseline solution.
+\begin{table}[htbp]
+	\caption{Mission Architectures}
+	\label{tab:mission_elem_opts}
+	\centering
+		\begin{tabular}{|p{0.8cm}|p{7cm}|}
+			\hline
+		\textbf{Element}		&		\textbf{Option}			\\ 
+			\hline 															  
+			A1 &  HSI mapping of the ocean; autonomous onboard processing of mission data, then transmitted after pass; ground commands on mission plan.  \\
+			\hline
+			A2 & HSI mapping of the ocean; autonomous onboard processing of mission data, then transmitted after pass; ground commands on mission plan; \textcolor{orange}{updates to other robotic agents}. \\
+			\hline
+			A3  & HSI mapping of the ocean; \textcolor{orange}{semi-raw downlinked mission data, then post-processed}; ground commands on mission plan.  \\
+			\hline
+			A4  & HSI mapping of the ocean; \textcolor{orange}{semi-raw downlinked mission data, then post-processed}; ground commands on mission plan; \textcolor{orange}{if satellite sees interesting signature $\rightarrow$ send out other air/surface agents directly}  \\
+			\hline	
+			A5  & HSI mapping of the ocean; autonomous onboard processing of mission data, then transmitted after pass; ground commanding on mission plan; \textcolor{orange}{autonomous coordinated robotic multi-agent observations}   \\ \hline
+			B1 & No agents tracked from space  \\ \hline
+			B2  & \textcolor{orange}{Multi-agent targets tracked: USVs, UAVs, Ships, Buoys} \\ \hline
+			C1  & Oceanography through Hyperspectral imaging    \\ \hline	
+			D1  & Small aperture HSI \\ \hline
+			D2  & SDR \\ \hline
+			E1 & 2-6U size; 3-axis stabilization; spacecraft pointing; body-mounted solar panels; onboard GPS; onboard orbit control; no micro-propulsion \\ \hline
+			F1 & SSO; 1-satellite \\ \hline
+			F2 & \textcolor{orange}{(P)LEO}; 1-satellite \\ \hline
+			G1 & PSLV or Soyuz 9 (highly tradeable) \\ \hline
+			H1 & Dedicated: NTNU; Commercial (e.g. KSAT) \\ \hline
+			I1 & Store \& dump data; TM/TC-transceiver; $\geq$2 ground stations; UHF-band uplink, X-band downlink \\ \hline
+			I2 & Store \& dump data; TM/TC-transceiver; $\geq$2 ground stations; UHF-band uplink, \textcolor{orange}{S-band downlink} \\ \hline
+			I3 & Store \& dump data; TM/TC-transceiver; $\geq$2 ground stations; \textcolor{orange}{S-band uplink}, X-band downlink \\ \hline
+			I4 & Store \& dump data; TM/TC-transceiver; $\geq$2 ground stations; \textcolor{orange}{S-band uplink}, \textcolor{orange}{S-band downlink} \\ \hline
+			I5 & Store \& dump data; TM/TC-transceiver; $\geq$2 ground stations; UHF-band uplink, X-band downlink; \textcolor{orange}{multi-agent cross-links in VHF/UHF} \\ \hline
+			I6 & Store \& dump data; TM/TC-transceiver; $\geq$2 ground stations; UHF-band uplink, S-band downlink; multi-agent cross-links in VHF/UHF \\ \hline
+			I7 & Store \& dump data; TM/TC-transceiver; $\geq$2 ground stations; \textcolor{orange}{S-band uplink}, X-band downlink; \textcolor{orange}{multi-agent cross-links in VHF/UHF} \\ \hline
+			I8 & Store \& dump data; TM/TC-transceiver; $\geq$2 ground stations; \textcolor{orange}{S-band uplink}, \textcolor{orange}{S-band downlink}; \textcolor{orange}{multi-agent cross-links in VHF/UHF} \\ \hline
+			J1 & Fully automated ground stations; part-time operations on demand; Indirect updates on mission to/from other agents
+\\ \hline
+			J2 & Fully automated ground stations; part-time operations on demand; \textcolor{orange}{Direct updates on mission to/from other agents} \\ \hline
+		\end{tabular}
+\end{table}
+
+All these combinations of mission elements give 40 mission architectures. The elements are highly correlated, therefore justifying the need for detailed unbiased decision criteria analysis. System drivers such as program cost, risk, mission reliability, development reliability, man-hours, science output and size of data rate are weighted highest across a normalized scale. The drivers and mission elements are fed into a black box, or Decision-Making Analysis, i.e. \emph{TOPSIS} or \emph{AHP} as shown in Fig. \ref{fig:decision_making} \cite{Cascales2012, Saaty1987}. These "black-box" methods select the most reliable candidates of mission architectures, ranking them as shown in Table \ref{tab:topsis}. The top 5 architectures are chosen to investigate here and will be iterated on further until choosing only one with confidence for detailed systems design.
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[width=85mm,angle=0]{figs/decision_making.png}
+    \caption{Input to decision making 1st order or multivariable algorithms with rank driven by system drivers}
+    \label{fig:decision_making}
+\end{center}
+\end{figure}
+\begin{table}[htbp]
+	\caption{TOPSIS Decision Ranking}
+	\label{tab:topsis}
+	\centering
+		\begin{tabular}{|p{1.1cm}|p{5cm}|}
+			\hline
+		\textbf{Rank}	&		\textbf{Mission Architecture}	\\ 
+			\hline 															  
+			1 & A2-B1-C1-D1-E1-F1-G1-H1-I8-J1  \\
+			\hline
+			2 & A1-B1-C1-D1-E1-F2-G1-H1-I2-J1 \\
+			\hline
+			3  & A3-B1-C1-D1-E1-F2-G1-H1-I1-J1  \\
+			\hline
+			4  & A3-B1-C1-D1-E1-F1-G1-H1-I2-J1  \\
+			\hline	
+			5  & A2-B2-C1-D1-E1-F1-G1-H1-I6-J2  \\ \hline
+		\end{tabular}
+\end{table}
+\subsection{Science Requirements}
+\begin{table*}[htbp]
+	\centering
+			\caption{Available biology in Norway/Scandinavia}
+		\begin{tabular}{llll}
+			\hline
+			Class & Color & Location & Season \\
+			\hline
+			Diatoms & Green/yellow & S to Mid-West Norway & Mar-Jun \\
+			Prymnesiophytes & Golden/brown & All Norway & Apr-Jul \\
+			Raphidophytes/Dictyochophytes & Golden/brown & South-West Norway & Apr-May \\
+			Cyanophytes & Reddish & Baltic/Skagerrak/South Norway & Jul-Sep \\
+			\hline
+			Species (\redtext{red} = TOXIC) & Color & Location & Season \\
+			\hline
+			\textit{Skeletonema costatum} & Golden/brown & Skagerrak & May-Jun \\
+			\textit{Chaetoceros convolutus} & Golden/brown & Rogaland-Helgeland & Mar-Apr \\
+			\redtext{\textit{Prymnesium parvum}} & Golden & Hylsfjord in Ryfylke & Jul-Aug \\
+			\redtext{\textit{Chrysochromulina polylepis}} & Brown & S, SE, W and Mid-Norway, Oster/S\o rfjord & Apr-Jul \\
+			\redtext{\textit{P. papilliferum}} & Golden & Hylsfjord in Ryfylke & Jul-Aug \\
+			\redtext{\textit{Heterosigma akashiwo}} &	Reddish & Osterfjord/S\o rfjord & Apr-May \\
+			\redtext{\textit{Karenia mikimotoi}} & Golden/brown & Skagerrak/Baltic & Apr-Aug \\
+			\redtext{\textit{Karlodinium veneficum}} & Golden/brown & Skagerrak/Baltic & Apr-Aug \\
+			\textit{Emiliania huyxlei} & Milky/brown & Along all Norwegian Coast & Apr-Sep \\
+			\textit{Pseudochattonella} & Golden/brown & Baltic & Apr-Aug \\
+			\hline
+		\end{tabular}
+		\label{tab:biology}
+\end{table*}
+Since the main driver for this mission is oceanography, specifically dedicated to narrow field-of-view monitoring and mapping of ocean color phenomena particularly linked to biology, the key science objectives are:
+\begin{itemize}
+\item Detect algae and phytoplankton in coastal waters (see Table \ref{tab:biology} for relevant biology)
+\item Enable $<$100 m pixel resolution and high spectral resolution of at least 10 nm to characterize useful signatures
+\item Detect color of other matter such as biology, color-distorted organic matter, oil spills and river plumes
+\item Distinguish harmful and non-harmful species cooperatively from space observations (inferral) and in-situ measurements (validation)
+\item Enable remote sensing corrections for atmosphere, aerosols, air bubbles, sun-glint, water turbidity, diffracted second order light, water vapor, landscape distortions
+\item In-situ validation of remote sensing data will be necessary by methods of using USVs, AUVs or manual sample collection
+\item Space remote sensing shall be coordinated with NTNU AUV field campaigns in Svalbard, Trondheim and Fr{\o}ya
+\item Positive detections of relevant signatures from space are to be investigated closer by UAV, USV or AUV with high response
+\item Observations shall be available in Spring/Summer time from March to July when biology is relatively abundant and probability of detection is highest
+\end{itemize}
+One of the main phytoplankton classes that are common in Norwegian ocean are a) Diatoms; b) Prymnesiophytes; c) Raphidophytes/Dictyochophytes; d) and Cyanophytes aka Cyanobacteria  \cite{Geir2011}. Algae/plankton classes and species to look for in Norway/Scandinavia are listed in Table \ref{tab:biology}.
+
+\subsection{Payload Requirements}
+Some selected payload requirements needed to fulfill the mission requirements and science objectives are as follows:
+\begin{itemize}
+\item Faintest detectable ToA signature for on-board algorithm detection shall be at least SNR of 100:1 in the range of 400-600 nm range and at least SNR of 40:1 in the 600-800 nm range 
+\item Onboard processing shall consist of automated geometric (situational awareness) processing/calibration; radiometric processing/calibration; spectral compression; and spatial compression in the respective order and have feedback loop to the navigational and control \& task execution data from ADCS
+\item Corrections for atmospheric distortions, water particles, aerosols, turbidity, clouds shall be enabled by utilizing $750-800$ nm (NIR) bands
+\item Four imaging modes shall be enabled: 1) high-resolution with 160 spectral bands; 2) medium-resolution with 160 spectral bands; 2) high-resolution with 16 spectral bands; 3) medium-resolution with 16 spectral bands
+\item On-board super-resolution or deconvolution algorithms shall enable overlapping fields of view to be fused in order to enhance the image resolution by a factor of at least $3$ and mean SNR of at least $\sqrt{3}$
+\item Level 2 data transmitted to ground shall consist of geometrically and radiometrically calibrated and geo-referenced hyperspectral images with up to 160 spectral bands and $\leq 10$ nm resolution that have Gaussian average for each band
+\item Level 4 data transmitted to ground shall consist of target location and at least radiometrically calibrated hyperspectral images with up to 20 spectral bands and $\leq 5$ nm resolution that have Gaussian average for each band 
+\item Payload shall operate in unique modes according to the database used (e.g. gain tuning, exposure time, binning operations, and spectral compression)
+\item Payload shall enable on-board radiometric and geometric calibration resulting in $\leq 30$\% radiometric uncertainty and $\leq 10$ \% geometric uncertainty
+\end{itemize}
+\subsection{Orbit Selection}
+\begin{figure*}[htbp]
+  \begin{center}
+    \includegraphics[width=130mm,angle=0]{figs/groundtrack1.png}
+    \caption{Groundtrack \hypso in morning, evening and ISS orbits at epoch 16 May 2018 07:00:00 (UTC).}
+    \label{fig:groundtrack1}
+\end{center}
+\end{figure*}
+The orbit is selected given a preferred observation target in the coast of Mid-Norway and prospective Ground Stations in Trondheim, Troms{\o} and Svalbard for communications. Orbit parameters are summarized in Table \ref{tab:mission_params}.
+\begin{table}[htbp]
+	\caption{Baseline Orbit Configuration}
+	\label{tab:mission_params}
+	\centering
+		\begin{tabular}{|l|l|}
+			\hline
+			Orbit Parameter			&	 Value 			\\ 
+			\hline
+			Launch LTAN &       10:00 AM/10:00 PM \\
+			Semi-major axis, $a$ &  6878.14 km \\
+			Altitude, $h$  &     500 km \\
+			Average altitude loss & -3.4 m/day \\
+			Speed, $v_{\text{sat}}$ & 7.621 km/s \\
+			Orbit period & 94 min 49 s \\
+			Inclination, $i$ &         97.31$^{\circ}$ \\
+			Eccentricity, $e$ &       0.0015 \\
+			RAAN precession rate & 3.6$\times 10^{-5 \hspace{3pt}\circ}$/day westwards \\
+			Angular momentum & 52261.69 km$^2$/s \\
+			Revolutions & 15.31 revs/day \\
+			Repeat cycle & 7 days \\	
+			Mean eclipse ratio & 36.1 \% \\
+			Lifetime & 7.4 years \\
+		 \hline
+		\end{tabular}
+\end{table}
+A sun-synchronous orbit is chosen which is a near-polar orbit with inclination $i=96-98^{\circ}$ and altitude $h=500-600$ km. The advantage is that the satellite passes over any given point of the Earth's surface at the same local sidereal time, however J2 effects or oblateness of the Earth will precess the nominal RAAN, $\Omega$, but less as compared to a polar orbit. The orbit is chosen such that at least approximately $60\%$ of the orbit is in constant sunlight and other $40\%$ in Earth's shadow (Umbra) in order to meet the mission requirements to observe a target off the coast of central Norway during morning or mid-day.
+
+\subsubsection{Targets} \label{sec:targets}
+Baseline targets to be observed are: a) Fr{\o}ya; b) Barents Sea (North of Finnmark County); c) Baltic Sea; d) Lofoten; e) Azores \& Portugal; f) Monterey Bay; g) Lake Hudson; h) East Greenland; i) Svalbard. All of these regions have significant history of algal blooms and appearance of non-nominal ocean color and biology and are therefore of interest to observe. Specifically, Fr{\o}ya, Barents Sea, Lofoten and Svalbard are interesting to observe from space in order to support AUV field campaigns (sampling and underwater imaging) run by NTNU regularly \footnote{\hypso may, through mission control communications, aid AUVs by directing them towards corrected coordinates based on what the satellites sees which will significantly save both operational costs and time.}. 
+
+\subsubsection{Orbit Configuration 1} \label{sec:orbit1}
+Parameters for a morning SSO configuration are $h=500$ km, $i\approx 97.31^{\circ}$ and LTAN 10:00 AM at launch, and is called a "morning" orbit since the Right Ascension of Ascending Node (RAAN) crosses the equatorial plane in the morning 10:00 AM (LTAN). Figs. \ref{fig:groundtrack1} and \ref{fig:orbit_sso} show a SSO \sml configuration ground track and 3D view, respectively. Note that the Norwegian coast is covered several times per day (both northwards and southwards passes as Earth revolves about its axis), although the orbit track does not give the satellite flexibility in observing along the coast since it passes Norway cross-track to the coast. Ground track repeat cycle is about 7 days for this configuration.
+%\begin{figure}[H]
+  %\begin{center}
+    %\includegraphics[width=85mm,angle=0]{figs/altitudevstime_sso.png}
+    %\caption{Altitude changes during one day due to orbit not being completely circular.}
+    %\label{fig:altitudevstime_sso}
+%\end{center}
+%\end{figure}
+Details about access times to selected targets and Ground Stations are given in Table \ref{tab:revisit_1}, , where \textcolor{blue}{blue} indicates ground station and \textcolor{red}{red} indicates target to image. It is assumed that target areas and ground stations have elevation angles of $\epsilon_{\text{Target}}=20^{\circ}$ and $\epsilon_{\text{GS}}=10^{\circ}$ respectively where first is due to optical viewing angle constraints ($\theta<70^{\circ}$).
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[width=75mm,angle=0]{figs/orbit_sso.png}
+    \caption{Two possible \hypso orbits (SSO) at altitude $h=500$ km and ISS orbit.}
+    \label{fig:orbit_sso}
+\end{center}
+\end{figure}
+\begin{table}[htbp]
+	\caption{Access times (16 May 2020 07 AM - 17 May 2020 07 AM) for Configuration 1}
+	\label{tab:revisit_1}
+	\centering
+		\begin{tabular}{|l|c|c|c|c|c|}
+			\hline
+			 & \textcolor{blue}{NTNU} & \textcolor{blue}{Svalbard} & \textcolor{blue}{UPorto}  &  \textcolor{red}{Fr{\o}ya} & \textcolor{red}{Barents} \\
+					\hline
+			\# passes & 7 & 11 & 2 & 3 & 4 \\
+			Max (min) & 7.408 & 7.478 & 7.446 & 5.011 & 5.517 \\
+			Mean (min) 	&	5.478	&	6.813 & 7.315 & 3.397 & 3.997  		\\
+			Min (min) & 2.780 & 4.743 & 7.185 & 1.888 & 0.928 \\
+			\hline
+		\end{tabular}
+\end{table}
+%Interesting observable locations and Ground Station functionality and availability are given in Table \ref{tab:mission_ops1}.
+%\begin{table*}[htbp]
+	%\caption{South-North Pass Observations on 22 June}
+	%\label{tab:mission_ops1}
+	%\centering
+		%\begin{tabular}{|l|l|l|l|}
+			%\hline
+			%\textbf{\#}			&	 \textbf{Time (UTC)}	&	\textbf{Targets} 	& \textbf{Ground Stations}		\\ 
+			%\hline 															
+		 %1  &  08:09:00     &  Svalbard; Barents Sea; Trondheim (1st) & Svalbard (DOWN); Trondheim (UP) \\
+		 %2  &  09:39:10     &  Trondheim (2nd); Fr{\o}ya; Lofoten; Baltics; Svalbard & Svalbard (DOWN); Trondheim (UP); Porto (DOWN/UP) \\
+		 %3  &  10:51:20     & Iceland; Faroe Islands; South Africa; Trondheim (3rd); Ireland; UK & Svalbard (DOWN); Trondheim (UP); Porto (UP) \\
+		 %4 & 12:40:00 & West Africa; Iceland; Greenland & None \\
+		 %5 & 15:57:00 & Lake Hudson & None \\
+		 %6 & 17:21:19 & Mexico Gulf & None \\
+		 %7 & 18:59:00 & Monterey Bay, CA & NASA Ames \\
+			%\hline
+		%\end{tabular}
+%\end{table*}
+%Mission phases may be summarized in the following Table \ref{tab:mission_phases1}, assuming $20^{\circ}$ viewing angle for HSI observations.
+%\begin{table}[htbp]
+	%\caption{Mission Phases in Orbit 1 Concept}
+	%\label{tab:mission_phases1}
+	%\centering
+		%\begin{tabular}{|l|l|l|r|}
+			%\hline
+			%Segment &		Description		& Start (UTC)	& Duration (s) \\
+			%\hline
+			%Phase 1 &	Harvest &	09:37:10 &	5 \\
+			%Phase 2	& Comms. Trondheim	& 09:37:15 &	125 \\
+			%Phase 3	& Prepare slewing	& 09:39:20	& 115 \\
+			%Phase 4	& HSI operations	& 09:41:15 &	54 \\
+			%Phase 5	& Data processing	& 09:42:09 &	74 \\
+			%Phase 6	& Point to Svalbard &	09:43:25	& 20 \\
+			%Phase 7	& Comms. Svalbard	& 09:43:45 & 270 \\
+			%Phase 8	& Harvest & 09:48:15 &	605 \\
+			%Phase 9	& Sleep	& 09:59:20 &	2207 \\
+			%Phase 10 &	Harvest &	10:36:07	& 2255 \\
+			%N+1 &	Next target	& 11:13:42	& 373 \\
+			%\hline
+			%\end{tabular}
+%\end{table}
+\subsubsection{Orbit Configuration 2} \label{sec:orbit2}
+Second configuration has $h=500$ km, $i\approx 97.31^{\circ}$ and 10:00 PM LTAN, which is called an "evening" orbit. Figure \ref{fig:orbit_sso} shows the particular orbit configuration where the satellite, at this particular time of the year, goes from north to south. Note that the Norwegian coast is covered several times per day. One particular orbit may potentially pass all the way from Svalbard down to the tip of Southern Norway, covering the whole coast. Appropriate launch window must be chosen wisely to avoid sun glare effects though these are fewer than in morning. Since many biological events happen in the Spring around 10 AM, this orbit appears more scientifically viable as it offers flexibility along observing the whole coast. Ground track repeat cycle is about 7 days also for this configuration.
+
+Details about access times to NTNU, Longyearbyen, UPorto, Fr{\o}ya and Barents are given in Table \ref{tab:revisit_2} where \textcolor{blue}{blue} indicates ground station and \textcolor{red}{red} indicates target to image.
+\begin{table}[htbp]
+	\caption{Access times (16 May 2020 07 AM - 17 May 2020 07 AM) for Configuration 2}
+	\label{tab:revisit_2}
+	\centering
+		\begin{tabular}{|l|c|c|c|c|c|}
+			\hline
+			 & \textcolor{blue}{NTNU} & \textcolor{blue}{Svalbard} & \textcolor{blue}{UPorto}  &  \textcolor{red}{Fr{\o}ya} & \textcolor{red}{Barents} \\
+					\hline
+			\# passes & 6 & 11 & 4 & 2 & 5 \\
+			Max (min) & 7.405 & 7.446 & 7.182 & 5.005 & 5.350 \\
+			Mean (min) 	&	5.725	&	6.484 & 5.375 & 3.835 & 4.507  		\\
+			Min (min) & 2.349 & 3.460 & 2.871 & 2.665 & 3.471 \\
+			\hline
+		\end{tabular}
+\end{table}
+%Interesting observable locations and Ground Station functionality and availability are given in Table \ref{tab:mission_ops2}.
+%\begin{table*}[htbp]
+	%\caption{North-South Pass Observations on 28 April 2020}
+	%\label{tab:mission_ops2}
+	%\centering
+		%\begin{tabular}{|l|l|l|l|}
+			%\hline
+			%\textbf{\#}			&	 \textbf{Time (UTC)}	&	\textbf{Options} 	& \textbf{Ground Stations}		\\ 
+			%\hline 															
+		 %1  &  07:51:30     &  Barents Sea; South Africa & Svalbard (UP); Trondheim (DOWN) \\
+		 %2  &  09:25:55     &  Svalbard; All Norway; Denmark & Svalbard (UP); Trondheim (DOWN) \\
+		 %3  &  11:02:30     & Iceland; Faroe Islands; Azores (PT); Ireland; UK & Svalbard (UP); Porto (DOWN) \\
+		 %4 & 15:46:10 & Lake Hudson & None \\
+		 %5 & 17:26:00 & Monterey Bay & NASA Ames \\
+			%\hline
+		%\end{tabular}
+%\end{table*}
+
+\subsubsection{Backup Orbit} \label{sec:backup}
+Constraints due to costs and budgets may have an impact on the project development and hence result in a less desirable but affordable orbit that are accessible with cheaper launches. For instance launches are most abundant and frequent to ISS due to high-demand for supply, maintenance and rapid science measurements on the space station. ISS is also at a lower altitude and low inclination of $i\approx 51.6^{\circ}$, hence launcher costs are lower. This backup orbit is also analyzed in case of an orbit insertion/deployment going wrong for a nominal SSO launch where it is stipulated in the worst case that \hypso will have a low inclination hence access not being granted to either NTNU, Svalbard or nominal target areas in Fr{\o}ya, Baltic and Barents Sea. Figures \ref{fig:groundtrack1} and \ref{orbit_sso.png} show the ground track and orbit, respectively. Details about access times to selected targets and Ground Stations are given in Table \ref{tab:revisit_1}, where \textcolor{blue}{blue} indicates ground station and \textcolor{red}{red} indicates target to image.
+\begin{table}[htbp]
+	\caption{Access times (16 May 2020 07 AM - 17 May 2020 07 AM) for ISS Configuration}
+	\label{tab:revisit_2}
+	\centering
+		\begin{tabular}{|l|c|c|c|c|c|}
+			\hline
+			 & \textcolor{blue}{UPorto} & \textcolor{blue}{UVigo} & \textcolor{red}{Monterey} & \textcolor{red}{Azores} & \textcolor{red}{Cape Point} \\
+					\hline
+			\# passes & 7 & 7 & 1 & 1 & 3 \\
+			Max (min) & 6.554 & 6.581 & 3.963 & 4.390 & 4.221 \\
+			Mean (min) 	&	4.740	&	4.839 & - & - & 2.706 \\
+			Min (min) & 3.340 & 2.723 & - & - & 0.558 \\
+			\hline
+		\end{tabular}
+\end{table}
+
